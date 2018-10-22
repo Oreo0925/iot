@@ -5,7 +5,8 @@ import { AppComponent } from './app.component';
 
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MatNativeDateModule, MatToolbarModule, MatButtonModule, MatIconModule, MatListModule, MatGridListModule,
-  MatCardModule, MatMenuModule, MatTableModule, MatPaginatorModule, MatSortModule} from '@angular/material';
+  MatCardModule, MatMenuModule, MatTableModule, MatPaginatorModule, MatSortModule, MatInputModule} from '@angular/material';
+import {MatFormFieldModule} from '@angular/material/form-field';
 import { HttpClientModule} from '@angular/common/http';
 import { MatSidenavModule} from '@angular/material/sidenav';
 import { MatCheckboxModule} from '@angular/material/checkbox';
@@ -18,8 +19,9 @@ import { ThirdPageComponent } from './third-page/third-page.component';
 
 import { TableComponent } from './table/table.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
-
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 const appRoutes: Routes = [
   {path: 'first-page' , component: FirstPageComponent},
   {path: 'second-page' , component: SecondPageComponent},
@@ -57,7 +59,12 @@ const appRoutes: Routes = [
     MatMenuModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatSelectModule,
+    MatDatepickerModule
   ],
   exports: [
     BrowserModule,
@@ -67,7 +74,12 @@ const appRoutes: Routes = [
     HttpClientModule,
     MatSidenavModule,
     MatCheckboxModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatSelectModule,
+    MatDatepickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
