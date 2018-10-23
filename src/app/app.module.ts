@@ -22,12 +22,16 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { Table2Component } from './table2/table2.component';
+import { DeviceService } from './iot/device.service';
+
 const appRoutes: Routes = [
   {path: 'first-page' , component: FirstPageComponent},
   {path: 'second-page' , component: SecondPageComponent},
   {path: 'third-page' , component: ThirdPageComponent},
   {path: 'dashboard' , component: DashboardComponent},
-  {path: 'table' , component: TableComponent}
+  {path: 'table' , component: TableComponent},
+  {path: 'table2' , component: Table2Component}
 ];
 @NgModule({
   declarations: [
@@ -37,7 +41,8 @@ const appRoutes: Routes = [
     SecondPageComponent,
     ThirdPageComponent,
     TableComponent,
-    DashboardComponent
+    DashboardComponent,
+    Table2Component
   ],
   imports: [
     BrowserModule,
@@ -64,7 +69,8 @@ const appRoutes: Routes = [
     MatInputModule,
     MatAutocompleteModule,
     MatSelectModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    HttpClientModule
   ],
   exports: [
     BrowserModule,
@@ -81,7 +87,9 @@ const appRoutes: Routes = [
     MatSelectModule,
     MatDatepickerModule
   ],
-  providers: [],
+  providers: [
+    DeviceService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

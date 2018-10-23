@@ -4,12 +4,19 @@ import { TableDataSource } from './table-datasource';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {FormControl} from '@angular/forms';
+import { DeviceService } from '../iot/device.service';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
 })
 export class TableComponent implements OnInit {
+
+  constructor(public deviceService: DeviceService) {
+  }
+
+  device;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: TableDataSource;
@@ -24,13 +31,15 @@ export class TableComponent implements OnInit {
     {value: 'pizza-1', viewValue: 'Pizza'},
     {value: 'tacos-2', viewValue: 'Tacos'}
   ];
+
   ngOnInit() {
     this.dataSource = new TableDataSource(this.paginator, this.sort);
     this.filteredOptions = this.myControl.valueChanges
-    .pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+    this.device = this.deviceService.device;
   }
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
