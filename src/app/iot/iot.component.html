@@ -5,11 +5,12 @@
       [opened]="!(isHandset$ | async)">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="/first-page">First Page</a>
-      <a mat-list-item href="/second-page">Second Page</a>
-      <a mat-list-item href="/third-page">Third Page</a>
-      <a mat-list-item href="/dashboard">Dashboard Schematic</a>
-      <a mat-list-item href="/table">Table Schematic</a>
+      <a mat-list-item routerLink="first-page">First Page</a>
+      <a mat-list-item routerLink="second-page">Second Page</a>
+      <a mat-list-item routerLink="third-page">Third Page</a>
+      <a mat-list-item routerLink="dashboard">Dashboard Schematic</a>
+      <a mat-list-item routerLink="table">Table Schematic</a>
+      <a mat-list-item routerLink="template-driven-forms">Template Driven Forms</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

@@ -1,0 +1,64 @@
+<div class="content">
+  <h1> Template Driven Forms </h1>
+  <!--
+  f.value:                     {{ f.value | json }}<br>
+  logId_.value:                {{ logId_.value | json }}<br>
+  logId_.hasError('required'): {{ logId_.hasError('required') }}<br>
+  logId_.valid:                {{ logId_.valid }}<br>
+  logId_.pristine:             {{ logId_.pristine }}<br>
+  logId.pristine:              {{ logId_.pristine }}<br>
+  -->
+  <div class="loginForm">
+    <form #f = "ngForm" >
+      <div>
+        <label for="loginId">帳號</label>
+        <input type="text" class="form-control" name="loginId" #logId_="ngModel" ngModel required>
+        <div [hidden]="!logId_.hasError('required') || logId_.pristine" class="alert alert-danger">
+          帳號必填
+        </div>
+      </div>
+      <div [hidden]="!changeContext('changePW')">
+        <label for="password">密碼</label>
+        <input type="password" class="form-control" name="password" #password_="ngModel" ngModel required>
+        <div [hidden]="!password_.hasError('required') || password_.pristine" class="alert alert-danger">
+          密碼必填
+        </div>
+      </div>
+      <div [hidden]="changeContext('unregistered')">
+        <!--
+          {{!passwordAgain.hasError('required')}}
+          {{password_.value == passwordAgain.value}}
+          {{password_.value}}
+          {{passwordAgain.value}}
+        -->
+        <label for="passwordAgain">再次輸入密碼</label>
+        <input type="password" class="form-control" name="passwordAgain" #passwordAgain="ngModel" ngModel required>
+        <div [hidden]="(password_.value == passwordAgain.value && !passwordAgain.hasError('required')) || passwordAgain.pristine" class="alert alert-danger">
+          <span [hidden]="!passwordAgain.hasError('required')">請再次輸入密碼<br></span>
+          <span [hidden]="password_.value == passwordAgain.value">密碼錯誤<br></span>
+        </div>
+      </div>
+      <!--
+       loginError: {{ loginError }}<br>
+       !loginError: {{ !loginError }}<br>
+       !!loginError: {{ !!loginError }}<br>
+      -->
+      <div class="font-color-red" *ngIf="loginError">
+        * 帳號密碼錯誤
+      </div>
+    </form>
+    <!--showContext: {{ showContext }}-->
+    <div class="content-right">
+        <mat-radio-group [(ngModel)]="showContext">
+          <mat-radio-button [value]="'registered'" color="primary" >已註冊用戶</mat-radio-button>
+          <mat-radio-button [value]="'changePW'" color="primary">忘記密碼</mat-radio-button>
+          <mat-radio-button [value]="'unregistered'" color="primary">新用戶註冊</mat-radio-button>
+        </mat-radio-group>
+    </div>
+    <div class="content-right">
+      <button class="btn btn-primary" [class.hidden]="changeContext('registered')" (click)="login(f)">登入</button>
+      <button class="btn btn-primary" [class.hidden]="changeContext('changePW')" (click)="changePassword(f)">忘記密碼</button>
+      <button class="btn btn-primary" [class.hidden]="changeContext('unregistered')" (click)="register(f)">註冊</button>
+    </div>
+ </div>
+</div>
