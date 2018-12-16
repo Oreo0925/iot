@@ -17,7 +17,8 @@ mat-radio-button {
 .loginForm {
   width: 400px;
 }
-.ng-valid[required], .ng-valid.required  {
+
+.ng-valid[required], .ng-valid[validatorPassword], .ng-valid.required, .ng-valid.validatorPassword {
   border-left: 5px solid #42A948; /* green */
 }
 

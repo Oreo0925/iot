@@ -29,6 +29,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatRadioModule} from '@angular/material/radio';
 
 import { DeviceService } from './iot/device.service';
+import { PasswordValidatorDirective } from './template-driven-forms/password-validator.directive';
+
 const appRoutes: Routes = [
   {path: 'first-page' , component: FirstPageComponent},
   {path: 'second-page' , component: SecondPageComponent},
@@ -48,7 +50,8 @@ const appRoutes: Routes = [
     TableComponent,
     DashboardComponent,
     Table2Component,
-    TemplateDrivenFormsComponent
+    TemplateDrivenFormsComponent,
+    PasswordValidatorDirective
   ],
   imports: [
     BrowserModule,

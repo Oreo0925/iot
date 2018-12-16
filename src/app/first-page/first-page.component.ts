@@ -32,4 +32,7 @@ export class FirstPageComponent implements OnInit {
   ngOnInit() {
   }
 
+  login(f) {
+    console.log(f.value.loginId);
+  }
 }

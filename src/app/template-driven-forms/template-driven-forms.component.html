@@ -1,19 +1,20 @@
 <div class="content">
   <h1> Template Driven Forms </h1>
   <!--
-  f.value:                     {{ f.value | json }}<br>
-  logId_.value:                {{ logId_.value | json }}<br>
-  logId_.hasError('required'): {{ logId_.hasError('required') }}<br>
-  logId_.valid:                {{ logId_.valid }}<br>
-  logId_.pristine:             {{ logId_.pristine }}<br>
-  logId.pristine:              {{ logId_.pristine }}<br>
+   f.value:                    {{ f.value | json }}<br>
+   logId.value:                {{ logId.value | json }}<br>
+   logId.errors                {{ logId.errors | json }}<br>
+   logId.hasError('required'): {{ logId.hasError('required') }}<br>
+   logId.valid:                {{ logId.valid }}<br>
+   logId.pristine:             {{ logId.pristine }}<br>
+   logId.touched:              {{ logId.touched }}<br>
   -->
   <div class="loginForm">
-    <form #f = "ngForm" >
+    <form #f = "ngForm">
       <div>
         <label for="loginId">帳號</label>
-        <input type="text" class="form-control" name="loginId" #logId_="ngModel" ngModel required>
-        <div [hidden]="!logId_.hasError('required') || logId_.pristine" class="alert alert-danger">
+        <input type="text" class="form-control" name="loginId" #logId="ngModel" ngModel required>
+        <div [hidden]="!logId.hasError('required') || logId.pristine" class="alert alert-danger">
           帳號必填
         </div>
       </div>
@@ -25,17 +26,19 @@
         </div>
       </div>
       <div [hidden]="changeContext('unregistered')">
-        <!--
-          {{!passwordAgain.hasError('required')}}
-          {{password_.value == passwordAgain.value}}
-          {{password_.value}}
-          {{passwordAgain.value}}
-        -->
+          <!--
+          required: {{ passwordAgain.hasError('required') }}<br>
+          passwordDifferent: {{ passwordAgain.hasError('passwordDifferent') }}<br>
+          {{ password_.value }}<br>
+          {{ passwordAgain.value }}<br>
+          {{ passwordAgain.errors | json }}<br>
+          {{ passwordAgain.valid }}<br>
+          -->
         <label for="passwordAgain">再次輸入密碼</label>
-        <input type="password" class="form-control" name="passwordAgain" #passwordAgain="ngModel" ngModel required>
-        <div [hidden]="(password_.value == passwordAgain.value && !passwordAgain.hasError('required')) || passwordAgain.pristine" class="alert alert-danger">
+        <input type="password" class="form-control" name="passwordAgain" #passwordAgain="ngModel" ngModel validatorPassword required>
+        <div [hidden]="passwordAgain.valid || passwordAgain.pristine" class="alert alert-danger">
           <span [hidden]="!passwordAgain.hasError('required')">請再次輸入密碼<br></span>
-          <span [hidden]="password_.value == passwordAgain.value">密碼錯誤<br></span>
+          <span [hidden]="!passwordAgain.hasError('passwordDifferent')">密碼錯誤<br></span>
         </div>
       </div>
       <!--

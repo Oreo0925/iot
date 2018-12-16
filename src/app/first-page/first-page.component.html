@@ -1,3 +1,14 @@
-<p>
-  first-page works!
-</p>
+
+
+
+<form #f = "ngForm" (ngSubmit)="login(f)" >
+    f.value:                    {{ f.value | json }}<br>
+    logId.value:                {{ logId.value | json }}<br>
+    logId.errors                {{ logId.errors | json }}<br>
+    logId.hasError('required'): {{ logId.hasError('required') }}<br>
+    logId.valid:                {{ logId.valid }}<br>
+    logId.pristine:             {{ logId.pristine }}<br>
+    logId.touched:              {{ logId.touched }}<br>
+  帳號: <input type="text" name="loginId" #logId="ngModel" ngModel required>
+  <button type="submit">登入</button>
+</form>
