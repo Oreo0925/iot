@@ -1,6 +1,7 @@
 <div class="content">
   <h1> Template Driven Forms </h1>
   <!--
+   f.valid:                    {{ f.valid }}<br>
    f.value:                    {{ f.value | json }}<br>
    logId.value:                {{ logId.value | json }}<br>
    logId.errors                {{ logId.errors | json }}<br>
@@ -61,7 +62,7 @@
     <div class="content-right">
       <button class="btn btn-primary" [class.hidden]="changeContext('registered')" (click)="login(f)">登入</button>
       <button class="btn btn-primary" [class.hidden]="changeContext('changePW')" (click)="changePassword(f)">忘記密碼</button>
-      <button class="btn btn-primary" [class.hidden]="changeContext('unregistered')" (click)="register(f)">註冊</button>
+      <button class="btn btn-primary" [class.hidden]="changeContext('unregistered')" [disabled]="!f.valid" (click)="register(f)">註冊</button>
     </div>
  </div>
 </div>

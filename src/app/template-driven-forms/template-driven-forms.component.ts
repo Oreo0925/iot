@@ -8,6 +8,7 @@ import { MatRadioButton } from '@angular/material';
 })
 export class TemplateDrivenFormsComponent implements OnInit {
 
+  passwordAgain = '';
   showContext = 'registered';
   showBtnClass;
   loginError = null;
