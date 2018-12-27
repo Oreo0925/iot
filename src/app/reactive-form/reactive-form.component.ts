@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 
 @Component({
-  selector: 'app-second-page',
-  templateUrl: './second-page.component.html',
-  styleUrls: ['./second-page.component.css']
+  selector: 'app-reactive-form',
+  templateUrl: './reactive-form.component.html',
+  styleUrls: ['./reactive-form.component.css']
 })
-export class SecondPageComponent implements OnInit {
+export class ReactiveFormComponent implements OnInit {
+
   formData = new FormGroup({
     name: new FormControl(),
     address: new FormArray([
@@ -24,10 +25,16 @@ export class SecondPageComponent implements OnInit {
       })
     ])
   });
-  constructor() { }
+
+  formDate2 = this.fb.group({
+    items: this.fb.array([
+    ])
+  });
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
   }
+
   get address() {
     return this.formData.get('address') as FormArray;
   }
