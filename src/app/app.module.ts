@@ -31,6 +31,8 @@ import {MatRadioModule} from '@angular/material/radio';
 import { DeviceService } from './iot/device.service';
 import { PasswordValidatorDirective } from './template-driven-forms/password-validator.directive';
 import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
+import { AddressComponent } from './reactive-form/address/address.component';
+
 
 const appRoutes: Routes = [
   {path: 'first-page' , component: FirstPageComponent},
@@ -54,7 +56,8 @@ const appRoutes: Routes = [
     Table2Component,
     TemplateDrivenFormsComponent,
     PasswordValidatorDirective,
-    ReactiveFormComponent
+    ReactiveFormComponent,
+    AddressComponent
   ],
   imports: [
     BrowserModule,

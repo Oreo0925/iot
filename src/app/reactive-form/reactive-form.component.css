@@ -6,3 +6,19 @@
   text-align: right;
   margin: 10px 0px;
 }
+
+form {
+  width: 600px;
+}
+mat-radio-button {
+  padding-left: 15px;
+}
+
+
+.ng-valid[required], .ng-valid.required {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form):not(.mailGroup)  {
+  border-left: 5px solid #a94442; /* red */
+}

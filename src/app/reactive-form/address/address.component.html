@@ -1,0 +1,53 @@
+<div [formGroup]="formGroup" class="addressBox">
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">地址類別</label>
+    <div class="col-sm-9">
+      <mat-radio-group formControlName="addressType">
+        <mat-radio-button [value]="'home'" color="primary" >住家</mat-radio-button>
+        <mat-radio-button [value]="'office'" color="primary">公司</mat-radio-button>
+        <mat-radio-button [value]="'other'" color="primary">其他</mat-radio-button>
+      </mat-radio-group>
+      <!-- <div class="form-check form-check-inline">
+        <input class="form-check-input" id="inlineRadio1" type="radio"  value="home" checked formControlName="addressType">
+        <label class="form-check-label" for="inlineRadio1">住家</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" id="inlineRadio2" type="radio"  value="office" formControlName="addressType">
+        <label class="form-check-label" for="inlineRadio2">公司</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" id="inlineRadio3" type="radio"  value="other" formControlName="addressType">
+        <label class="form-check-label" for="inlineRadio3">其他</label>
+      </div> -->
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">縣市區域</label>
+    <div class="col-sm-9">
+      <select class="form-control">
+        <option selected>請選擇縣市</option>
+        <option>...</option>
+      </select>
+      <select class="form-control">
+        <option selected>請選擇區域</option>
+        <option>...</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="staticEmail" class="col-sm-3 col-form-label">郵遞區號</label>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" placeholder="郵遞區號">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="staticEmail" class="col-sm-3 col-form-label">地址</label>
+    <div class="col-sm-7">
+      <input type="text" class="form-control">
+    </div>
+    <div class="col-sm-2">
+      <button class="btn btn-primary" (click)="remove()">移除</button>
+    </div>
+
+  </div>
+</div>

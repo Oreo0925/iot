@@ -1,74 +1,83 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormGroup, FormControl, FormArray, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { mergeMap, debounceTime } from 'rxjs/operators';
+
+/*
+自定義驗證
+*/
+function SetMinLength(len: number): ValidatorFn {
+  return (c: AbstractControl) => {
+    if (c.value.length < len) {
+      return {'customLength': true};
+    }
+  };
+}
 
 @Component({
   selector: 'app-reactive-form',
   templateUrl: './reactive-form.component.html',
   styleUrls: ['./reactive-form.component.css']
 })
+
 export class ReactiveFormComponent implements OnInit {
 
-  formData = new FormGroup({
-    name: new FormControl(),
-    address: new FormArray([
-      new FormControl()
-    ], {updateOn: 'blur'}),
-    phones: new FormArray([
-      new FormGroup({
-        phoneNumber: new FormControl(),
-      }),
-      new FormGroup({
-        phoneNumber: new FormControl(),
-      }),
-      new FormGroup({
-        phoneNumber: new FormControl(),
-      })
-    ])
+  formData = this.fb.group({
+    name: ['', [SetMinLength(10)]],
+    phone: '',
+    emailGroup: this.fb.group({
+      email: ['', [Validators.required]]
+    }),
+    send: '',
+    notifyWay: 'email',
+    addressList: this.fb.array([this.createAddressList()])
   });
 
-  formDate2 = this.fb.group({
-    items: this.fb.array([
-    ])
-  });
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private http: HttpClient) {}
 
   ngOnInit() {
+    this.formData.get('notifyWay').valueChanges
+    .subscribe(notifyWay => {
+      console.log(notifyWay);
+      if (notifyWay === 'text') {
+        this.formData.get('phone').setValidators([Validators.required]);
+        this.formData.get('phone').updateValueAndValidity();
+        this.formData.get('text').clearValidators();
+        this.formData.get('text').updateValueAndValidity();
+      } else if (notifyWay === 'email') {
+        this.formData.get('phone').clearValidators();
+        this.formData.get('phone').updateValueAndValidity();
+        this.formData.get('text').setValidators([Validators.required]);
+        this.formData.get('text').updateValueAndValidity();
+      }
+    });
+
+    this.formData.get('name').valueChanges.pipe(
+      debounceTime(500), mergeMap(inputValue => this.http.get('')))
+      .subscribe(data => console.log(data) );
   }
 
-  get address() {
-    return this.formData.get('address') as FormArray;
-  }
-  get phones() {
-    return this.formData.get('phones') as FormArray;
-  }
-
-  removePhone(idx) {
-    this.phones.removeAt(idx);
-  }
-
-  addPhone() {
-    this.phones.push(new FormGroup({
-      phoneNumber: new FormControl('新增電話')
-    }));
+  createAddressList() {
+    return this.fb.group({
+      addressType: 'home',
+      city: '',
+      area: '',
+      zipcode: '',
+      address: ''
+    });
   }
 
-  insertPhone(idx) {
-    this.phones.insert(idx + 1, new FormGroup({
-      phoneNumber: new FormControl('插入電話')
-    }));
+  get addressListArray() {
+    return this.formData.get('addressList') as FormArray;
   }
 
-  clearLastPhone() {
-    while (this.phones.length > 1) {
-      this.phones.removeAt(1);
-    }
+  addNew() {
+    this.addressListArray.push(this.createAddressList());
   }
 
-  resetPhone() {
-    this.phones.reset([{phoneNumber: '00-000000'}]);
+  remove(index) {
+    console.log(index);
+    this.addressListArray.removeAt(index);
   }
 
-  resetFormDate() {
-    this.formData.reset({phoneNumber: '00-000000'});
-  }
 }

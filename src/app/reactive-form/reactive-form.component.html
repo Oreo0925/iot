@@ -1,27 +1,51 @@
 <div class="content">
   <h1> Reative Forms </h1>
   {{ formData.value | json }}<br>
+  nameValid: {{ formData.get('name').valid | json }}<br>
+  emailGroupValid: {{ formData.get('emailGroup').valid | json }}<br>
+  phoneValid: {{ formData.get('phone').valid | json }}<br>
   <form [formGroup]="formData">
-      <label>姓名：</label>
-      <input type="text" formControlName="name"/>
-      <div formArrayName="address">
-        <div *ngFor="let item of address.controls; let i=index">
-          <label>地址：</label>
-          <input type="text" [formControlName]="i" />
-        </div>
+    <div class="form-group row">
+      <label for="staticEmail" class="col-sm-3 col-form-label">姓名</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" placeholder="姓名 (必填)" formControlName="name">
       </div>
-      <div formArrayName="phones">
-        <div *ngFor="let item of phones.controls; let i=index" [formGroupName]="i">
-            <label>電話：</label>
-            <input type="text" formControlName="phoneNumber" />
-            <button (click)="removePhone(i)">移除電話</button>
-            <button (click)="insertPhone(i)">+</button>
-        </div>
+    </div>
+    <div formGroupName="emailGroup" class="mailGroup">
+        <div class="form-group row" *ngIf="true">
+            <label for="staticEmail" class="col-sm-3 col-form-label">E-mail</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" placeholder="Email (必填)" formControlName="email">
+            </div>
+          </div>
+    </div>
+    <div class="form-group row">
+      <label for="staticEmail" class="col-sm-3 col-form-label">手機號碼</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" placeholder="手機號碼 (必填)" formControlName="phone">
       </div>
-      <button (click)="addPhone()">新增電話</button>
-      <button (click)="clearLastPhone()">清除剩第一支電話</button>
-      <button (click)="resetPhone()">reset</button>
-      <button (click)="resetFormDate()">resetFormDate</button>
+    </div>
+    <div class="form-group row">
+      <label for="inputPassword" class="col-sm-3 col-form-label">通知方式</label>
+      <mat-radio-group formControlName="notifyWay">
+        <mat-radio-button [value]="'email'" color="primary" >Email</mat-radio-button>
+        <mat-radio-button [value]="'text'" color="primary">簡訊</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="form-group row">
+      <label for="inputPassword" class="col-sm-3 col-form-label">是否寄送產品型錄</label>
+      <div class="col-sm-9">
+        <mat-checkbox formControlName="send" color="primary"></mat-checkbox>
+      </div>
+    </div>
+    <div *ngIf="formData.get('send').value" >
+      <div *ngFor="let item of addressListArray.controls; let i= index" [formGroup]="item">
+        <app-address [formGroup]="item" (removeEvent)="remove($event)"></app-address>
+      </div>
+    </div>
+    <div class="content-right">
+      <button type="button" class="btn btn-primary" (click)=addNew()>新增地址</button>
+    </div>
   </form>
 </div>
 
